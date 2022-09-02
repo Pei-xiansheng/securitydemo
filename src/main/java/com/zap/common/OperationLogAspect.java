@@ -17,8 +17,8 @@ import java.text.SimpleDateFormat;
  * @date: 2022/5/28 17:03
  */
 
-@Aspect
-@Component
+//@Aspect
+//@Component
 public class OperationLogAspect {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OperationLogAspect.class);

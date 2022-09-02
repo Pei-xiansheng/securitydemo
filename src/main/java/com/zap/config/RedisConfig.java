@@ -7,12 +7,14 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.text.SimpleDateFormat;
 
@@ -46,7 +48,7 @@ public class RedisConfig {
         objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd"));
         objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
         objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-
+        objectMapper.registerModule(new SimpleModule().addDeserializer(SimpleGrantedAuthority.class, new SimpleGrantedAuthorityDeserializer()));
         jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
 
         // 设置value的序列化规则和 key的序列化规则

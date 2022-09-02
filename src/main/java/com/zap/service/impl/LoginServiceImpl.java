@@ -37,7 +37,7 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public Result login(Person person) {
         //用户认证
-        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(person.getName(), person.getPassword()));
+        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(person.getUsername(), person.getPassword()));
 
         //判断是否通过认证
         if(Objects.isNull(authenticate)){

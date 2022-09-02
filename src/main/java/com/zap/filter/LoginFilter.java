@@ -3,7 +3,6 @@ package com.zap.filter;
 import com.zap.config.RedisService;
 import com.zap.entity.LoginUser;
 import com.zap.utils.JwtUtils;
-import io.jsonwebtoken.Jwt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

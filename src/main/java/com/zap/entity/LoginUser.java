@@ -2,6 +2,7 @@ package com.zap.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -52,7 +53,7 @@ public class LoginUser implements UserDetails {
 
     @Override
     public String getUsername() {
-        return person.getName();
+        return person.getUsername();
     }
 
     @Override

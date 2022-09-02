@@ -2,11 +2,9 @@ package com.zap.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 
@@ -20,17 +18,18 @@ import java.sql.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@TableName("user")
-public class Person {
+@Builder
+@TableName("blog_user")
+public class Person{
 
     @TableId
     private Integer id;
-    private String name;
+    private String username;
+    private String password;
     private Integer age;
     private String email;
+    private String phone;
+    private String gender;
     private Date createTime;
     private Date updateTime;
-    private Integer version;
-    private Integer deleted;
-    private String password;
 }

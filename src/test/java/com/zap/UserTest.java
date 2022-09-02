@@ -29,9 +29,10 @@ public class UserTest {
     public void test(){
 
         LambdaQueryWrapper<Person> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Person::getName,"老王");
+        queryWrapper.eq(Person::getUsername,"张三");
         Person person = userMapper.selectOne(queryWrapper);
         System.out.println(person);
+
     }
 
     @Test

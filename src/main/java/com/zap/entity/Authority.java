@@ -21,7 +21,7 @@ import java.sql.Date;
 public class Authority {
     @TableId
     private Integer id;
-    private Integer user_id;
+    private Integer userId;
     private String authority;
     private Date createTime;
     private Date updateTime;

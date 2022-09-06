@@ -48,7 +48,6 @@ public class LoginFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        //获取token信息
         String token = request.getHeader("token");
         //判断token信息是否存在
         if(!StringUtils.hasText(token)){
@@ -65,13 +64,13 @@ public class LoginFilter extends OncePerRequestFilter {
             throw new RuntimeException("用户未登录");
         }
 
-        //将用户信息放入SecurityContextHolder中供过滤器链使用
-        //TODO 用户权限信息查询封装到认证信息中
+        //将用户信息放入SecurityContextHolder中供过滤器链使用--->用户权限信息查询封装到认证信息中
         Authority authority = authorityMapper.selectById(loginUser.getPerson().getId());
         List<SimpleGrantedAuthority> authorityList = Arrays.stream(authority.getAuthority().split(",")).distinct().map(item -> {
             return new SimpleGrantedAuthority(item);
         }).collect(Collectors.toList());
         log.info("权限集合为:{}",authorityList);
+
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser,null,authorityList);
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 

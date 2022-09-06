@@ -63,8 +63,10 @@ public class LoginServiceImpl implements LoginService {
 
         //发送消息
         sendMsg();
+
         //获取认证后的用户信息
         LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
+
         //生成JWT字符串保存用户的信息
         Integer perId = loginUser.getPerson().getId();
         String token = JwtUtils.getJwtToken(perId);

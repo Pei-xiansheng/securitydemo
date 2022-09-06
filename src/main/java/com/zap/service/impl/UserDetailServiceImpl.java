@@ -37,7 +37,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        //从数据库中查询用户信息//索引是对数据库中一列或多列值进行排序的数据结构,
+        //从数据库中查询用户信息//索引是对数据库中一列或多列值进行排序的数据结构,它是表中一列值或若干列值得集合以及指向表中物理标识这些值的数据页的逻辑指针清单
         LambdaQueryWrapper<Person> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Person::getUsername,name);
         Person person = userMapper.selectOne(queryWrapper);

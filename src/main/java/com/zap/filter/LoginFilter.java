@@ -1,10 +1,15 @@
 package com.zap.filter;
 
 import com.zap.config.RedisService;
+import com.zap.dao.AuthorityMapper;
+import com.zap.dao.UserMapper;
+import com.zap.entity.Authority;
 import com.zap.entity.LoginUser;
 import com.zap.utils.JwtUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -15,7 +20,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author: Apeng
@@ -24,11 +32,15 @@ import java.util.Objects;
  */
 
 @Component
+@Slf4j
 public class LoginFilter extends OncePerRequestFilter {
 
 
     @Autowired
     RedisService redisService;
+
+    @Autowired
+    AuthorityMapper authorityMapper;
 
     private static String LOGIN_REDIS_KEY="login:";
 
@@ -55,7 +67,12 @@ public class LoginFilter extends OncePerRequestFilter {
 
         //将用户信息放入SecurityContextHolder中供过滤器链使用
         //TODO 用户权限信息查询封装到认证信息中
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser,null,null);
+        Authority authority = authorityMapper.selectById(loginUser.getPerson().getId());
+        List<SimpleGrantedAuthority> authorityList = Arrays.stream(authority.getAuthority().split(",")).distinct().map(item -> {
+            return new SimpleGrantedAuthority(item);
+        }).collect(Collectors.toList());
+        log.info("权限集合为:{}",authorityList);
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser,null,authorityList);
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
         //放行

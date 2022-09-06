@@ -29,3 +29,30 @@ mybatis-plus:
   mapper-locations: classpath:/mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true
+
+#kafaka相关配置
+kafka:
+  consumer:
+    group:
+      id: ap_group_id_dev
+      factory: kafkaListenerContainerFactoryCm
+    servers: 127.0.0.1:9092
+    enable:
+      auto:
+        commit: true
+    session:
+      timeout: 6000
+    auto:
+      commit:
+        interval: 100
+      offset:
+        reset: latest
+    concurrency: 10
+  producer:
+    server: 127.0.0.1:9092
+    retries: 0
+    batch:
+      size: 4096
+    linger: 1
+    buffer:
+      memory: 40960

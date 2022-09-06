@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -39,6 +40,24 @@ public class UserTest {
     public void getPassWord(){
         String encode = passwordEncoder.encode("123");
         System.out.println(encode);
+    }
+    @Test
+    public void bubble(){
+        int[] arr = new int[]{1,55,20,3,99,56,82,12};
+
+
+        for (int i = 0; i < arr.length-1; i++) {
+            for (int j = 0; j < arr.length-1-i; j++) {
+                if(arr[j]>arr[j+1]){
+                    int temp = arr[j];
+                    arr[j]=arr[j+1];
+                    arr[j+1]=temp;
+                }
+            }
+        }
+        Arrays.stream(arr).forEach(item->{
+            System.out.println(item);
+        });
     }
 
 

@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * kafka配置信息
+ * kafka 消费者配置
  */
 @Configuration
 @EnableKafka

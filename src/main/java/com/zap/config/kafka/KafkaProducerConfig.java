@@ -20,13 +20,6 @@ import java.util.Map;
 
 /**
  * kafka 生产者配置
- *
- * @Description: =======================
- * @Author: Jovi
- * =======================
- * @Date: Created in 2022/7/12
- * =======================
- * @Version: 0.0.1-SNAPSHOT
  */
 @Configuration
 @EnableKafka

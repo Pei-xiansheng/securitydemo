@@ -4,8 +4,10 @@ import com.zap.common.Result;
 import com.zap.config.RedisService;
 import com.zap.entity.LoginUser;
 import com.zap.entity.Person;
+import com.zap.entity.event.UserRegisterEvent;
 import com.zap.service.LoginService;
 import com.zap.utils.JwtUtils;
+import com.zap.utils.SpringContextUtil;
 import org.apache.coyote.http11.filters.VoidInputFilter;
 import org.apache.kafka.common.protocol.Message;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +44,9 @@ public class LoginServiceImpl implements LoginService {
     @Autowired
     KafkaTemplate template;
 
+    @Autowired
+    SpringContextUtil springContextUtil;
+
     private static String LOGIN_REDIS_KEY="login:";
 
     @Override
@@ -53,6 +58,10 @@ public class LoginServiceImpl implements LoginService {
         if(Objects.isNull(authenticate)){
             throw new RuntimeException("登录失败！");
         }
+        //发布事件
+        SpringContextUtil.publishEvent(new UserRegisterEvent("你好呀!",Long.valueOf(88L)));
+
+        //发送消息
         sendMsg();
         //获取认证后的用户信息
         LoginUser loginUser = (LoginUser) authenticate.getPrincipal();

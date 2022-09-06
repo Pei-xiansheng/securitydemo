@@ -34,6 +34,7 @@ mybatis-plus:
 kafka:
   consumer:
     group:
+      topic: ap_kafka_test
       id: ap_group_id_dev
       factory: kafkaListenerContainerFactoryCm
     servers: 127.0.0.1:9092

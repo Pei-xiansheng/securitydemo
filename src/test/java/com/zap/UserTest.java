@@ -3,13 +3,16 @@ package com.zap;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.zap.dao.UserMapper;
 import com.zap.entity.Person;
+import com.zap.entity.queue.SeqQueue;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.util.Assert;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author: Apeng
@@ -18,6 +21,7 @@ import java.util.List;
  */
 
 @SpringBootTest
+@Slf4j
 public class UserTest {
 
     @Autowired
@@ -58,6 +62,54 @@ public class UserTest {
         Arrays.stream(arr).forEach(item->{
             System.out.println(item);
         });
+    }
+
+    @Test
+    public void testHashMap(){
+        HashMap<String, Integer> map = new HashMap<>();
+        map.put("张三",1);
+        map.put("李四",5);
+        map.put("王五",3);
+        sortMap(map);
+    }
+
+    private void sortMap(HashMap<String, Integer> map) {
+        Set<Map.Entry<String, Integer>> entrySet = map.entrySet();
+        ArrayList<Map.Entry<String, Integer>> list = new ArrayList<>(entrySet);
+        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
+            @Override
+            public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+                return o1.getValue()-o2.getValue();
+            }
+        });
+        for (Map.Entry<String,Integer> m:list
+             ) {
+            System.out.println(m.getKey());
+        }
+    }
+
+    @Test
+    public void testQueue(){
+        ArrayList<String> list = new ArrayList<String>() {{
+            add("A");
+            add("B");
+            add("C");
+            add("D");
+            add("E");
+            add("F");
+            add("G");
+        }};
+        SeqQueue<String> queue = new SeqQueue<>(list.size() * 2, String.class);
+
+        for (int i = 0; i < list.size()*2; i++) {
+            if(i<list.size()){
+                queue.add(list.get(i));
+            }else{
+                queue.add(list.get(list.size()*2-1-i));
+            }
+            log.info("队列中的元素--->{}",queue.poll());
+        }
+
     }
 
 

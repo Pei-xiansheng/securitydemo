@@ -57,3 +57,8 @@ kafka:
     linger: 1
     buffer:
       memory: 40960
+
+# 配置log日志
+logging:
+  # 指定log日志文件
+  config: classpath:logback.xml

@@ -3,7 +3,7 @@ package com.zap.entity.design;
 /**
  * @ClassName Strategy
  * @Author Evan
- * @Descrption 策略
+ * @Descrption 策略模式
  * @create 2022/9/9 10:41
  */
 public abstract class Strategy {

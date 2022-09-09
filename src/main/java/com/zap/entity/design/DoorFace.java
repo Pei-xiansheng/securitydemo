@@ -29,7 +29,7 @@ class SystemB {
 /**
  * @ClassName DoorFace
  * @Author Evan
- * @Descrption
+ * @Descrption 门面模式
  * @create 2022/9/8 17:59
  */
 class SystemA {

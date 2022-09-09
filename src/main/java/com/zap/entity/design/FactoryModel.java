@@ -5,7 +5,7 @@ package com.zap.entity.design;
 /**
  * @ClassName FactoryModel
  * @Author Evan
- * @Descrption 工厂
+ * @Descrption 工厂模式
  * @create 2022/9/9 10:45
  */
 interface ShoeNike{

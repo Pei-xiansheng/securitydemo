@@ -74,7 +74,7 @@ public class LoginServiceImpl implements LoginService {
         map.put("token",token);
         //将用完整的用户信息存入redis中
 
-        redisService.set(LOGIN_REDIS_KEY+perId,loginUser,200);
+        redisService.set(LOGIN_REDIS_KEY+perId,loginUser,2000);
         return Result.ok().map(map);
     }
     public void sendMsg(){
